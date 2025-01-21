@@ -45,8 +45,10 @@ class ClientesController {
     async update(req, res) {
         const id = req.params.id;
 
+
         try {
             const data = await Cliente.findByIdAndUpdate(id, req.body, { useFindAndModify: false });
+            console.log(data)
             return res.status(201).json(data);
         } catch (err) {
             res.status(500).send(
@@ -62,7 +64,7 @@ class ClientesController {
         const id = req.params.id;
 
         try {
-            const data = await Cliente.findByIdAndRemove(id);
+            const data = await Cliente.findByIdAndDelete(id);
             return res.status(201).json(data);
         } catch (err) {
             res.status(500).send(

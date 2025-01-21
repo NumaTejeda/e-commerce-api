@@ -16,6 +16,7 @@ const ClienteSchema = new mongoose.Schema({
   },
   nombre: {
     type: String,
+    required: true,
   },
   direccion: {
     type: String,
@@ -25,10 +26,12 @@ const ClienteSchema = new mongoose.Schema({
   },
   rol: {
     type: String,
-    Enum: ['admin', 'user'],
+    enum: ['admin', 'user'],
     default: 'user'
   }
 });
+
+
 
 ClienteSchema.pre('save', async function save(next){
   if (!this.isModified('clave')) {

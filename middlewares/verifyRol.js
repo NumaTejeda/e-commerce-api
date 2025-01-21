@@ -1,19 +1,17 @@
 //el rol permitodo viene de verifyRol('admin) en las rutas
 const verifyRol = (rolPermitido) =>{
 
-
-    //fiajte que traer el rol desde cliente vrifyJWT en utils
     
     return (req, res, next)=>{
         // const token = req.headers[authorization];
         const rol = req.user.rol;
-        
+        console.log(rol)
         if(!rol){
             res.status(401).send({message: 'Rol no proporsionado'})
         }
 
         try{
-            if(!rolPermitido.isnclude(rol)){
+            if(!rolPermitido.includes(rol)){
                 res.status(403).send({message: 'No tiene permitido realizar esta accion'});
             }
             console.log("******rol verificado correctamente*******")

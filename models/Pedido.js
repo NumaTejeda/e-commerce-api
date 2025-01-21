@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const {totalPedido} = require('../helpers/util.js');
 
 const ProductosPedidoSchema = new mongoose.Schema(
     {
@@ -15,14 +16,10 @@ const ProductosPedidoSchema = new mongoose.Schema(
             default: 1
         },
         precio: {
-            type : Number
-        },
-        status: {
-            type: String,
-            enum: ['Creado', 'Procesado','Enviado']
+            type : Number,
         },
         descuento: {
-            type : Number
+            type : Number,
         },
         impuesto: {
             type: Number,
@@ -32,6 +29,16 @@ const ProductosPedidoSchema = new mongoose.Schema(
         }
     }
 );
+
+ProductosPedidoSchema.pre('save', async function save(next){
+    try{
+        this.total = totalPedido(this.cantidad, this.precio, this.descuento, this.impuesto)
+        next();
+    }catch(e){
+        next(e);
+    }
+
+})
 
 const PedidoSchema = new mongoose.Schema(
     {
@@ -61,7 +68,18 @@ const PedidoSchema = new mongoose.Schema(
 
 
 PedidoSchema.pre('save', async function save(next) {
-    
+    let totalProductos = 0;
+    try{
+        for(let i = 0; i < this.productos.length; i++) {
+            totalProductos += this.productos[i].total;
+        }
+        this.total = totalProductos;
+        next();
+
+    }catch(e){
+        res.status(500).send({message: e} || 'Error al crear pedido')
+    }
+
 });
 
 

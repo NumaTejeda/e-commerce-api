@@ -22,4 +22,15 @@ const comparePassword = async (password, password2, cb) => {
   });
 }
 
-module.exports = { verifyJWT, comparePassword }
+const totalPedido = (cantidad, precio, descuento, impuesto) =>{
+  let sumaTotal = cantidad * precio;
+  if(descuento){
+    sumaTotal -= sumaTotal * descuento/100;
+  }
+  if(impuesto){
+    sumaTotal += sumaTotal * impuesto/100;
+  }
+  return sumaTotal;
+}
+
+module.exports = { verifyJWT, comparePassword, totalPedido }

@@ -64,6 +64,16 @@ class PedidosController {
             );
         }
     }
+
+    async deleteAll(req, res) {
+        try {
+            const data = await Pedido.deleteMany({});
+            res.status(201).json(data)
+
+        }catch(e){
+            res.status(500).sengo({message: e.message || 'Error al realizar el borrado del pedido'});
+        }
+    }
 }
 
 module.exports = new PedidosController();

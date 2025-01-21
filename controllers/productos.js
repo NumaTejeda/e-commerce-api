@@ -79,7 +79,7 @@ class ProductosController {
         const id = req.params.id;
 
         try {
-            const data = await Producto.findByIdAndRemove(id)
+            const data = await Producto.findByIdAndDelete(id)
 
             if (!data) {
                 res.status(404).send({

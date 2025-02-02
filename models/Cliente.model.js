@@ -8,7 +8,10 @@ const ClienteSchema = new mongoose.Schema({
     unique: true,
     lowercase: true,
     trim: true,
-    match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Debe indicar un email válido'],
+    match: [
+      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+      'Debe indicar un email válido',
+    ],
   },
   clave: {
     type: String,
@@ -27,13 +30,11 @@ const ClienteSchema = new mongoose.Schema({
   rol: {
     type: String,
     enum: ['admin', 'user'],
-    default: 'user'
-  }
+    default: 'user',
+  },
 });
 
-
-
-ClienteSchema.pre('save', async function save(next){
+ClienteSchema.pre('save', async function save(next) {
   if (!this.isModified('clave')) {
     return next();
   }

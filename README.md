@@ -1,4 +1,3 @@
-
 //Variables de entorno
 
 PORT
@@ -8,16 +7,15 @@ USER_NAME_MONGO
 USER_PASS_MONGO
 FRASE_SECRETA
 
-
 //C - Inserción de clientes
 routes.post('/cliente',clientes.create);
 
 body: {
-  "email": "numa.tejeda@gmail.com",
-  "clave": "Pomelo",
-  "nombre": "Numa",
-  "direccion": "",
-  "telefono": ""
+"email": "numa.tejeda@gmail.com",
+"clave": "Pomelo",
+"nombre": "Numa",
+"direccion": "",
+"telefono": ""
 }
 
 //R - Consulta de clientes
@@ -32,7 +30,7 @@ Params: id
 
 //U - Actualización de clientes
 routes.patch('/cliente', verifyJWT, clientes.update);
-  
+
 //D - Borrado de clientes
 routes.delete('/cliente', verifyJWT, clientes.delete);
 
@@ -45,12 +43,12 @@ routes.post('/producto',verifyJWT, productos.create);
 headers: content/type:application/json
 
 bodyExample: {
-  "nombre": "Tablets",
-  "sku": "265456",
-  "precio": 700,
-  "descripcion": "Muy bonita",
-  "dimenciones": {"ancho": 8, "alto": 5}
-  "proveedor": "Coppel"
+"nombre": "Tablets",
+"sku": "265456",
+"precio": 700,
+"descripcion": "Muy bonita",
+"dimenciones": {"ancho": 8, "alto": 5}
+"proveedor": "Coppel"
 }
 
 //R -Consulta de productos
